@@ -2,6 +2,7 @@ package br.edu.famper.apiprojetos.service;
 
 import br.edu.famper.apiprojetos.model.Projeto;
 import br.edu.famper.apiprojetos.repository.ProjetoRepository;
+import br.edu.famper.apiprojetos.service.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,10 +26,8 @@ public class ProjetoService {
     }
 
     public Projeto findById(Long id) {
-        Optional<Projeto> projeto = projetoRepository.findById(id);
-        return projeto.orElseThrow(() ->
-                    new RuntimeException("Usuário não encontrado")
-                );
+       return projetoRepository.findById(id).orElseThrow(
+               () -> new EntityNotFoundException("Id not found " + id));
     }
 
     @Transactional
@@ -45,7 +44,6 @@ public class ProjetoService {
     }
 
     public void deleteById(Long id) {
-        findById(id);
         projetoRepository.deleteById(id);
     }
 }

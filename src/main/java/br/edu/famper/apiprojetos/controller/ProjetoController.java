@@ -9,10 +9,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/projetos")
 public class ProjetoController {
+
     @Autowired
     private ProjetoService projetoService;
 
